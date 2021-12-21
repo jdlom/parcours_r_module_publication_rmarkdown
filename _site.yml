@@ -3,8 +3,8 @@ title: "Publications reproductibles avec RMarkdown"
 description: |
   Supports de la formation à Rmarkdown du MTES - MCTRCT
 output_dir: "docs"
-include: slides/
-exclude: ["renv", "book_source", "R","docs"]
+#include: ["slides", "book"]
+exclude: ["renv", "book_source", "R","docs", "build_all.sh", "slides", "book", "book.pdf"]
 navbar:
   right:
     - text: "Home"
