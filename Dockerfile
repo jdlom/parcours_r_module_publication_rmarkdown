@@ -1,0 +1,16 @@
+ARG R_VERSION=4.0.4
+
+FROM inseefrlab/rstudio:${R_VERSION}
+
+ENV RENV_VERSION 0.14.0
+RUN apt-get update \
+  && apt-get install -y cargo \
+  && curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  && apt-get update -qq \
+  && apt-get -y install ./google-chrome-stable_current_amd64.deb \
+  &&  rm ./google-chrome-stable_current_amd64.deb
+
+RUN R -e "install.packages('remotes', repos = c(CRAN = 'https://cloud.r-project.org'))"
+RUN R -e "remotes::install_github('rstudio/renv@${RENV_VERSION}')"
+COPY renv.lock renv.lock
+RUN R -e 'renv::restore()'
